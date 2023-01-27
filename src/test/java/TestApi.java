@@ -30,10 +30,9 @@ public class TestApi {
         when().
             get("/").
         then().
-            assertThat().
-                log().all().
-                assertThat().statusCode(equalTo(200)).
-                assertThat().body("status", equalTo(jsonObject.get("status")));
+            log().all().
+            assertThat().statusCode(equalTo(200)).
+            assertThat().body("status", equalTo(jsonObject.get("status")));
     }
 
     @Test

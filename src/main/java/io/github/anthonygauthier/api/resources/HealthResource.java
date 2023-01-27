@@ -29,6 +29,7 @@ public class HealthResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response postConnected() {
+        // created == 201
         return Response.created(URI.create("/1")).build();
     }
 }

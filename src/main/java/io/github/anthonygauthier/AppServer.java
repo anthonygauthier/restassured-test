@@ -9,7 +9,10 @@ public class AppServer {
     private Server server;
 
     public void start() {
+        // Setup server
         this.server = new Server(3000);
+
+        // Setup api resources (endpoints)
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
         servletContextHandler.setContextPath("/");
         this.server.setHandler(servletContextHandler);
@@ -19,12 +22,14 @@ public class AppServer {
                 "jersey.config.server.provider.packages",
                 "io.github.anthonygauthier.api.resources"
         );
+
+        // Start server
         try {
             this.server.start();
-            System.out.println("System running on port 3000");
+            System.out.println("AppServer running on port 3000");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-//            this.server.destroy();
+            e.printStackTrace();
+            System.exit(1);
         }
     }
 

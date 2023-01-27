@@ -27,6 +27,7 @@ public class TestApi {
             log().all(). // This allows us to output the request in the console for debugging purposes
             header("X-Test", "1").
             header("Authorization", "Bearer 123").
+            queryParam("myParam", "myValue").
         when().
             get("/").
         then().
@@ -39,6 +40,8 @@ public class TestApi {
     public void validate_post_health_endpoint() {
         given().
             log().all().
+            auth().oauth2("myAccessToken").
+            formParam("someFormParam", "myFormValue").
         when().
             post("/").
         then().

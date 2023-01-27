@@ -31,16 +31,13 @@ public class TestApi {
             get("/").
         then().
             assertThat().
-                log().all().statusCode(200). // This outputs the body of the response given a status code 200
-                body("status", equalTo(jsonObject.get("status")));
+                log().all().
+                assertThat().statusCode(equalTo(200)).
+                assertThat().body("status", equalTo(jsonObject.get("status")));
     }
 
     @Test
     public void validate_post_health_endpoint() {
-        // Set up the JSON object we're expecting
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status", "post-healthy");
-
         given().
             log().all().
         when().
@@ -48,7 +45,7 @@ public class TestApi {
         then().
             log().all().
             assertThat().statusCode(equalTo(201)).
-            assertThat().header("Location", "http://localhost:3000/1");
+            assertThat().header("Location", String.format("http://localhost:%d/1", RestAssured.port));
     }
 
     @After

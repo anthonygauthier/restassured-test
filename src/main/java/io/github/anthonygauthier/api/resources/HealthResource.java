@@ -5,7 +5,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import org.json.JSONObject;
+
+import java.net.URI;
 
 /**
  * Base endpoint for the ConnectivityResource class
@@ -24,7 +28,7 @@ public class HealthResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public String postConnected() {
-        return new JSONObject().put("status", "post-healthy").toString();
+    public Response postConnected() {
+        return Response.created(URI.create("/1")).build();
     }
 }

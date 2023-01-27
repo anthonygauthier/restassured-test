@@ -17,8 +17,8 @@ public class TestApi {
                                 // If this test suite was to test an app outside the Java project then we'd omit this
     }
 
-    @Test public void
-    validate_health_endpoint() {
+    @Test
+    public void validate_get_health_endpoint() {
         // Set up the JSON object we're expecting
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("status", "healthy");
@@ -33,6 +33,22 @@ public class TestApi {
             assertThat().
                 log().all().statusCode(200). // This outputs the body of the response given a status code 200
                 body("status", equalTo(jsonObject.get("status")));
+    }
+
+    @Test
+    public void validate_post_health_endpoint() {
+        // Set up the JSON object we're expecting
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status", "post-healthy");
+
+        given().
+            log().all().
+        when().
+            post("/").
+        then().
+            log().all().
+            assertThat().statusCode(equalTo(201)).
+            assertThat().header("Location", "http://localhost:3000/1");
     }
 
     @After
